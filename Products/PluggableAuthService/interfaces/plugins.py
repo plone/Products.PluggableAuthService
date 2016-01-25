@@ -503,3 +503,56 @@ class INotCompetentPlugin(Interface):
     def isNotCompetentToAuthenticate(request):
         """return true if this user folder should not authenticate *request*.
         """
+
+
+class IUserIntrospection(Interface):
+    """
+    Introspect users in a user source, api users need to be careful as
+    all sources may or not support this interface.
+
+    Realistically this can only be done by authentication sources, or
+    plugins which have intimate knowledge of such.
+    """
+
+    def getUserIds():
+        """
+        Return a list of user ids
+        """
+
+    def getUserNames():
+        """
+        Return a list of usernames
+        """
+
+    def getUsers():
+        """
+        Return a list of users
+        """
+
+
+class IGroupIntrospection(Interface):
+
+    def getGroupById(group_id):
+        """
+        Returns the portal_groupdata-ish object for a group
+        corresponding to this id.
+        """
+
+    #################################
+    # these interface methods are suspect for scalability.
+    #################################
+
+    def getGroups():
+        """
+        Returns an iteration of the available groups
+        """
+
+    def getGroupIds():
+        """
+        Returns a list of the available groups
+        """
+
+    def getGroupMembers(group_id):
+        """
+        return the members of the given group
+        """
