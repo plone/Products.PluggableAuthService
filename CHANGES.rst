@@ -4,6 +4,10 @@ Change Log
 2.0 (unreleased)
 ----------------
 
+- Add implementations for the IUserLoggedInEvent and IUserLoggedOutEvent
+  interfaces.
+  [dataflake]
+
 - Support ZopeVersionControl: we need to check 'plugins' for more than
   existence, since it replaces objects (like 'plugins') with
   SimpleItems and calls _delOb, which tries to use special methods of

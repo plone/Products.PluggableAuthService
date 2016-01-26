@@ -138,5 +138,52 @@ class PropertiesUpdatedTests(unittest.TestCase, ConformsToIPASEvent):
         verifyObject(IPropertiesUpdatedEvent, self._makeOne())
 
 
+class UserLoggedInTests(unittest.TestCase, ConformsToIPASEvent):
+
+    def _getTargetClass(self):
+        from Products.PluggableAuthService.events import UserLoggedIn
+        return UserLoggedIn
+
+    def _makeOne(self, principal=None):
+        if principal is None:
+            principal = DummyPrincipal()
+        return self._getTargetClass()(principal)
+
+    def test_class_conforms_to_IUserLoggedInEvent(self):
+        from zope.interface.verify import verifyClass
+        from Products.PluggableAuthService.interfaces.events \
+            import IUserLoggedInEvent
+        verifyClass(IUserLoggedInEvent, self._getTargetClass())
+
+    def test_instance_conforms_to_IUserLoggedInEvent(self):
+        from zope.interface.verify import verifyObject
+        from Products.PluggableAuthService.interfaces.events \
+            import IUserLoggedInEvent
+        verifyObject(IUserLoggedInEvent, self._makeOne())
+
+
+class UserLoggedOutTests(unittest.TestCase, ConformsToIPASEvent):
+
+    def _getTargetClass(self):
+        from Products.PluggableAuthService.events import UserLoggedOut
+        return UserLoggedOut
+
+    def _makeOne(self, principal=None):
+        if principal is None:
+            principal = DummyPrincipal()
+        return self._getTargetClass()(principal)
+
+    def test_class_conforms_to_IUserLoggedOutEvent(self):
+        from zope.interface.verify import verifyClass
+        from Products.PluggableAuthService.interfaces.events \
+            import IUserLoggedOutEvent
+        verifyClass(IUserLoggedOutEvent, self._getTargetClass())
+
+    def test_instance_conforms_to_IUserLoggedOutEvent(self):
+        from zope.interface.verify import verifyObject
+        from Products.PluggableAuthService.interfaces.events \
+            import IUserLoggedOutEvent
+        verifyObject(IUserLoggedOutEvent, self._makeOne())
+
 class DummyPrincipal(object):
     pass
