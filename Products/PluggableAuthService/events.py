@@ -54,6 +54,16 @@ class PropertiesUpdated(PASEvent):
         self.properties = properties
 
 
+@implementer(events.IUserLoggedInEvent)
+class UserLoggedIn(PASEvent):
+    pass
+
+
+@implementer(events.IUserLoggedOutEvent)
+class UserLoggedOut(PASEvent):
+    pass
+
+
 @adapter(IBasicUser, events.ICredentialsUpdatedEvent)
 def userCredentialsUpdatedHandler(principal, event):
     pas = aq_parent(principal)
