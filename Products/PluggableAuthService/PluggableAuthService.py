@@ -1300,6 +1300,23 @@ class PluggableAuthService(Folder, Cacheable):
             updater.updateEveryLoginName(
                 quit_on_first_error=quit_on_first_error)
 
+    # Below here former PlonePAS methods
+
+    @security.protected(ManageUsers)
+    def getGroup(self, group_id, default=None):
+        """Like getGroupById in groups tool, but doesn't wrap.
+        """
+        group = default
+        introspectors = self.plugins.listPlugins(iplugins.IGroupIntrospection)
+
+        if not introspectors:
+            raise ValueError('No plugins allow for group management')
+        for iid, introspector in introspectors:
+            group = introspector.getGroupById(group_id)
+            if group is not None:
+                break
+        return group
+
 
 InitializeClass(PluggableAuthService)
 
