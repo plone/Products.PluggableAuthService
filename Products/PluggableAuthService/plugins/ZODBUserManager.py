@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 ##############################################################################
 #
 # Copyright (c) 2001 Zope Foundation and Contributors
@@ -43,7 +44,10 @@ class IZODBUserManager(Interface):
 
 
 manage_addZODBUserManagerForm = PageTemplateFile(
-    'www/zuAdd', globals(), __name__='manage_addZODBUserManagerForm')
+    'www/zuAdd',
+    globals(),
+    __name__='manage_addZODBUserManagerForm'
+)
 
 
 def addZODBUserManager(dispatcher, id, title=None, REQUEST=None):

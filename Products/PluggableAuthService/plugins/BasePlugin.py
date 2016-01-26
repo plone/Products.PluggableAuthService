@@ -22,12 +22,12 @@ from OFS.PropertyManager import PropertyManager
 from OFS.SimpleItem import SimpleItem
 from Products.PageTemplates.PageTemplateFile import PageTemplateFile
 from Products.PluggableAuthService.permissions import ManageUsers
-from Products.PluggableAuthService.utils import classImplements
 from Products.PluggableAuthService.utils import createViewName
-from zope.interface import implementedBy
+from zope.deprecation import deprecation
 from zope.interface import providedBy
 
 
+@deprecation.deprecate('use zope.interfaces.Interface.flattened instead')
 def flattenInterfaces(implemented):
     return implemented.flattened()
 
@@ -39,12 +39,14 @@ class BasePlugin(SimpleItem, PropertyManager):
 
     security = ClassSecurityInfo()
 
-    manage_options = (({'label': 'Activate',
-                        'action': 'manage_activateInterfacesForm', },
-                       )
-                      + SimpleItem.manage_options
-                      + PropertyManager.manage_options
-                      )
+    manage_options = (
+        (
+            {'label': 'Activate',
+             'action': 'manage_activateInterfacesForm', },
+        ) +
+        SimpleItem.manage_options +
+        PropertyManager.manage_options
+    )
 
     prefix = ''
 
@@ -54,16 +56,15 @@ class BasePlugin(SimpleItem, PropertyManager):
 
     security.declareProtected(ManageUsers, 'manage_activateInterfacesForm')
     manage_activateInterfacesForm = PageTemplateFile(
-        'www/bpActivateInterfaces', globals(),
+        'www/bpActivateInterfaces',
+        globals(),
         __name__='manage_activateInterfacesForm')
 
     @security.protected(ManageUsers)
     def listInterfaces(self):
         """ For ZMI update of interfaces. """
-
         results = []
-
-        for iface in flattenInterfaces(providedBy(self)):
+        for iface in providedBy(self).flattened():
             results.append(iface.__name__)
 
         return results
@@ -83,18 +84,19 @@ class BasePlugin(SimpleItem, PropertyManager):
         active_interfaces = []
 
         for iface_name in interfaces:
-            active_interfaces.append(plugins._getInterfaceFromName(
-                iface_name))
+            active_interfaces.append(
+                plugins._getInterfaceFromName(iface_name)
+            )
 
         pt = plugins._plugin_types
-        id = self.getId()
+        sid = self.getId()
 
-        for type in pt:
-            ids = plugins.listPluginIds(type)
-            if id not in ids and type in active_interfaces:
-                plugins.activatePlugin(type, id)  # turn us on
-            elif id in ids and type not in active_interfaces:
-                plugins.deactivatePlugin(type, id)  # turn us off
+        for ptype in pt:
+            ids = plugins.listPluginIds(ptype)
+            if sid not in ids and ptype in active_interfaces:
+                plugins.activatePlugin(ptype, sid)  # turn us on
+            elif sid in ids and ptype not in active_interfaces:
+                plugins.deactivatePlugin(ptype, sid)  # turn us off
 
         if RESPONSE is not None:
             RESPONSE.redirect('%s/manage_workspace'
@@ -130,7 +132,5 @@ class BasePlugin(SimpleItem, PropertyManager):
             return pas.applyTransform(value)
         return value
 
-
-classImplements(BasePlugin, *implementedBy(SimpleItem))
 
 InitializeClass(BasePlugin)

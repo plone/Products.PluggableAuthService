@@ -448,11 +448,11 @@ class PluggableAuthService(Folder, Cacheable):
     security.declareProtected(ManageUsers, 'manage_search')
     manage_search = PageTemplateFile('www/pasSearch', globals())
 
-    manage_options = (Folder.manage_options[:1]
-                      + ({'label': 'Search', 'action': 'manage_search'},
-                         )
-                      + Folder.manage_options[2:]
-                      + Cacheable.manage_options
+    manage_options = (Folder.manage_options[:1] +
+                      ({'label': 'Search', 'action': 'manage_search'},
+                       ) +
+                      Folder.manage_options[2:] +
+                      Cacheable.manage_options
                       )
 
     @security.protected(ManageUsers)
@@ -930,7 +930,6 @@ class PluggableAuthService(Folder, Cacheable):
 
     @security.private
     def _getEmergencyUser(self):
-
         return emergency_user.__of__(self)
 
     @security.private
@@ -947,9 +946,11 @@ class PluggableAuthService(Folder, Cacheable):
         login = self.applyTransform(login)
 
         if not (useradders and roleassigners):
-            raise NotImplementedError("There are no plugins"
-                                      " that can create"
-                                      " users and assign roles to them.")
+            raise NotImplementedError(
+                "There are no plugins that can create users and assign roles "
+                "to them."
+
+            )
 
         for useradder_id, useradder in useradders:
             if useradder.doAddUser(login, password):

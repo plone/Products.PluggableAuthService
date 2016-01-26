@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 ##############################################################################
 #
 # Copyright (c) 2012 Zope Foundation and Contributors
@@ -116,9 +117,9 @@ class NotCompetent_byRoles(NotCompetentBase):
     roles = ()
 
     manage_options = (
-        (NotCompetentBase.manage_options[0], )
-        + PropertyManager.manage_options
-        + NotCompetentBase.manage_options[1:-1]
+        (NotCompetentBase.manage_options[0], ) +
+        PropertyManager.manage_options +
+        NotCompetentBase.manage_options[1:-1]
     )
 
     def isNotCompetentToAuthenticate(self, request):
@@ -126,7 +127,10 @@ class NotCompetent_byRoles(NotCompetentBase):
 
 
 manage_addNotCompetent_byRolesForm = PageTemplateFile(
-    'www/ncbrAdd', globals(), __name__='manage_addNotCompetent_byRolesForm')
+    'www/ncbrAdd',
+    globals(),
+    __name__='manage_addNotCompetent_byRolesForm'
+)
 
 
 def manage_addNotCompetent_byRoles(self, id, title='', REQUEST=None):

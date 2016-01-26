@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 ##############################################################################
 #
 # Copyright (c) 2001 Zope Foundation and Contributors
@@ -12,8 +13,6 @@
 #
 ##############################################################################
 """ Classes: DynamicGroupsPlugin
-
-$Id$
 """
 from AccessControl import ClassSecurityInfo
 from AccessControl.requestmethod import postonly
@@ -42,7 +41,10 @@ class IDynamicGroupsPlugin(Interface):
 
 
 manage_addDynamicGroupsPluginForm = PageTemplateFile(
-    'www/dgpAdd', globals(), __name__='manage_addDynamicGroupsPluginForm')
+    'www/dgpAdd',
+    globals(),
+    __name__='manage_addDynamicGroupsPluginForm'
+)
 
 
 def addDynamicGroupsPlugin(dispatcher, id, title='', RESPONSE=None):
@@ -138,9 +140,10 @@ class DynamicGroupDefinition(SimpleItem, PropertyManager):
     #
     #   ZMI
     #
-    manage_options = (PropertyManager.manage_options
-                      + SimpleItem.manage_options
-                      )
+    manage_options = (
+        PropertyManager.manage_options +
+        SimpleItem.manage_options
+    )
 
 InitializeClass(DynamicGroupDefinition)
 
@@ -394,14 +397,13 @@ class DynamicGroupsPlugin(Folder, BasePlugin, Cacheable):
     #
     #   ZMI
     #
-    manage_options = (({'label': 'Groups', 'action': 'manage_groups'
-                        },
-                       )
-                      + Folder.manage_options[:1]
-                      + BasePlugin.manage_options[:1]
-                      + Folder.manage_options[1:]
-                      + Cacheable.manage_options
-                      )
+    manage_options = (
+        ({'label': 'Groups', 'action': 'manage_groups'},) +
+        Folder.manage_options[:1] +
+        BasePlugin.manage_options[:1] +
+        Folder.manage_options[1:] +
+        Cacheable.manage_options
+    )
 
     manage_groups = PageTemplateFile(
         'www/dgpGroups',
@@ -440,8 +442,8 @@ class DynamicGroupsPlugin(Folder, BasePlugin, Cacheable):
         message = 'Group+%s+updated' % group_id
 
         if RESPONSE is not None:
-            RESPONSE.redirect(('%s/manage_groups?group_id=%s&'
-                               + 'manage_tabs_message=%s'
+            RESPONSE.redirect(('%s/manage_groups?group_id=%s&' +
+                               'manage_tabs_message=%s'
                                ) % (self.absolute_url(), group_id, message)
                               )
 

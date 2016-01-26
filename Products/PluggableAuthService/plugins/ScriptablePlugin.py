@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 ##############################################################################
 #
 # Copyright (c) 2001 Zope Foundation and Contributors
@@ -12,8 +13,6 @@
 #
 ##############################################################################
 """ Class: ScriptablePlugin
-
-$Id$
 """
 from AccessControl import ClassSecurityInfo
 from AccessControl.Permissions import manage_users as ManageUsers
@@ -67,16 +66,21 @@ class ScriptablePlugin(Folder, BasePlugin):
 
     meta_type = 'Scriptable Plugin'
 
-    manage_options = ((Folder.manage_options[0], )
-                      + ({'label': 'Interfaces',
-                          'action': 'manage_editInterfacesForm', },
-                         )
-                      + BasePlugin.manage_options
-                      )
+    manage_options = (
+        (Folder.manage_options[0], ) +
+        (
+            {
+                'label': 'Interfaces',
+                'action': 'manage_editInterfacesForm',
+            },
+        ) +
+        BasePlugin.manage_options
+    )
 
     security.declareProtected(ManageUsers, 'manage_editInterfacesForm')
     manage_editInterfacesForm = PageTemplateFile(
-        'www/spEditInterfaces', globals(),
+        'www/spEditInterfaces',
+        globals(),
         __name__='manage_editInterfacesForm')
 
     def __creatable_by_emergency_user__(self):

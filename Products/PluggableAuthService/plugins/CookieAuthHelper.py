@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 ##############################################################################
 #
 # Copyright (c) 2001 Zope Foundation and Contributors
@@ -88,10 +89,11 @@ class CookieAuthHelper(Folder, BasePlugin):
         }
     )
 
-    manage_options = (BasePlugin.manage_options[:1]
-                      + Folder.manage_options[:1]
-                      + Folder.manage_options[2:]
-                      )
+    manage_options = (
+        BasePlugin.manage_options[:1] +
+        Folder.manage_options[:1] +
+        Folder.manage_options[2:]
+    )
 
     def __init__(self, id, title=None, cookie_name=''):
         self._setId(id)

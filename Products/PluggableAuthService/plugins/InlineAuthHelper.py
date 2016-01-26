@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 ##############################################################################
 #
 # Copyright (c) 2001 Zope Foundation and Contributors
@@ -12,8 +13,6 @@
 #
 ##############################################################################
 """ Class: CookieAuthHelper
-
-$Id$
 """
 from AccessControl.SecurityInfo import ClassSecurityInfo
 from App.class_init import default__class_init__ as InitializeClass
@@ -31,7 +30,10 @@ class IInlineAuthHelper(Interface):
 
 
 manage_addInlineAuthHelperForm = PageTemplateFile(
-    'www/iaAdd', globals(), __name__='manage_addInlineAuthHelperForm')
+    'www/iaAdd',
+    globals(),
+    __name__='manage_addInlineAuthHelperForm'
+)
 
 
 def addInlineAuthHelper(dispatcher, id, title=None, REQUEST=None
@@ -64,9 +66,9 @@ class InlineAuthHelper(Folder, BasePlugin):
         'mode': 'w'
     })
 
-    manage_options = (BasePlugin.manage_options[:1]
-                      + Folder.manage_options[:1]
-                      + Folder.manage_options[2:]
+    manage_options = (BasePlugin.manage_options[:1] +
+                      Folder.manage_options[:1] +
+                      Folder.manage_options[2:]
                       )
 
     def __init__(self, id, title=None):

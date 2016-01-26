@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 ##############################################################################
 #
 # Copyright (c) 2001 Zope Foundation and Contributors
@@ -12,8 +13,6 @@
 #
 ##############################################################################
 """ Classes: LocalRolePlugin
-
-$Id$
 """
 from AccessControl import ClassSecurityInfo
 from App.class_init import InitializeClass

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 ##############################################################################
 #
 # Copyright (c) 2001 Zope Foundation and Contributors
@@ -36,7 +37,10 @@ class IDelegatingMultiPlugin(Interface):
     """
 
 manage_addDelegatingMultiPluginForm = PageTemplateFile(
-    'www/dmpAdd', globals(), __name__='manage_addDelegatingMultiPluginForm')
+    'www/dmpAdd',
+    globals(),
+    __name__='manage_addDelegatingMultiPluginForm'
+)
 
 
 def manage_addDelegatingMultiPlugin(self, id, title='', delegate_path='',
@@ -69,9 +73,10 @@ class DelegatingMultiPlugin(Folder, BasePlugin):
     security = ClassSecurityInfo()
     meta_type = 'Delegating Multi Plugin'
 
-    manage_options = (BasePlugin.manage_options[:1]
-                      + Folder.manage_options
-                      )
+    manage_options = (
+        BasePlugin.manage_options[:1] +
+        Folder.manage_options
+    )
 
     _properties = (
         {

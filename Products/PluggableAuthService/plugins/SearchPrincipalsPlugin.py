@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 ##############################################################################
 #
 # Copyright (c) 2001 Zope Foundation and Contributors
@@ -34,7 +35,10 @@ class ISearchPrincipalsPlugin(Interface):
     """
 
 addSearchPrincipalsPluginForm = PageTemplateFile(
-    'www/sppAdd', globals(), __name__='addSearchPrincipalsPluginForm')
+    'www/sppAdd',
+    globals(),
+    __name__='addSearchPrincipalsPluginForm'
+)
 
 
 def addSearchPrincipalsPlugin(dispatcher, id, title='', delegate_path='',
