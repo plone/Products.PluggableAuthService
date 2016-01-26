@@ -22,7 +22,7 @@ from Products.PluggableAuthService.interfaces.plugins \
     import INotCompetentPlugin
 from Products.PluggableAuthService.utils import directlyProvides
 from zExceptions import Unauthorized
-from zope.interface import implements
+from zope.interface import implementer
 import unittest
 
 
@@ -241,8 +241,8 @@ class DummyCounterChallenger(DummyChallenger):
         return True
 
 
+@implementer(INotCompetentPlugin)
 class DummyNotCompetentPlugin(DummyPlugin):
-    implements(INotCompetentPlugin)
 
     def __init__(self, id, type):
         self.id, self.type = id, type
@@ -423,9 +423,8 @@ def _extractExtra(request):
 
 
 def _authExtra(credentials):
-
-    return (credentials.get('salt') == 'pepper'
-            and (credentials['user'], credentials['user']) or None)
+    if credentials.get('salt') == 'pepper':
+        return (credentials['user'], credentials['user'])
 
 
 class RequestCleaner:
