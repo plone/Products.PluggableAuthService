@@ -75,3 +75,22 @@ class IPropertySheet(Interface):
     def propertyItems():
         """ Return a sequence of ( id, value ) tuples, one per property.
         """
+
+
+class IMutablePropertySheet(IPropertySheet):
+    """ Interface for mutable property sheets.
+
+    o Objects implementing this interface are able to read and write properties
+    """
+    def canWriteProperty(id):
+        """ Check if a property can be modified.
+        """
+
+    def setProperty(id, value):
+        """ Sets a property with a given id to the new value
+        """
+
+    def setProperties(mapping):
+        """ Sets for each key in the mapping the property to the given
+            corresponding value.
+        """
