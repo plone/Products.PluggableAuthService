@@ -16,6 +16,7 @@
 
 $Id$
 """
+from .plugins import AutoGroupPlugin
 from .plugins import ChallengeProtocolChooser as CPC
 from .plugins import CookieAuthHelper as CAH
 from .plugins import DelegatingMultiPlugin as DMP
@@ -57,6 +58,7 @@ registerMultiPlugin(DGP.DynamicGroupsPlugin.meta_type)
 registerMultiPlugin(CPC.ChallengeProtocolChooser.meta_type)
 registerMultiPlugin(RTS.RequestTypeSniffer.meta_type)
 registerMultiPlugin(NCH.NotCompetent_byRoles.meta_type)
+registerMultiPlugin(AutoGroupPlugin.AutoGroup.meta_type)
 
 try:
     from Products.GenericSetup import profile_registry
@@ -281,6 +283,15 @@ def initialize(context):
         constructors=(
             NCH.manage_addNotCompetent_byRolesForm,
             NCH.manage_addNotCompetent_byRoles, ),
+        visibility=None
+
+    )
+    context.registerClass(
+        AutoGroupPlugin.AutoGroup,
+        permission=ManageUsers,
+        constructors=(
+            AutoGroupPlugin.manage_addAutoGroup,
+            AutoGroupPlugin.manage_addAutoGroup, ),
         visibility=None
 
     )
