@@ -24,8 +24,7 @@ path = os.path.join(path, 'image.gif')
 img_file = open(path, 'r')
 
 
-class UserPropertySheetTests(unittest.TestCase, IPropertySheet_conformance
-                             ):
+class UserPropertySheetTests(unittest.TestCase, IPropertySheet_conformance):
 
     _SCHEMA = (
         ('s', 'string'),

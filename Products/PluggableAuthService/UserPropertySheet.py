@@ -13,72 +13,52 @@
 #
 ##############################################################################
 """ Represent a group of properties about a user.
-
-$Id$
 """
 from DateTime.DateTime import DateTime
 from OFS.Image import Image
 from Products.PluggableAuthService.interfaces.propertysheets import IPropertySheet  # noqa
-from types import BooleanType
-from types import FloatType
-from types import InstanceType
-from types import IntType
-from types import LongType
 from zope.interface import implementer
 
-StringTypes = (str, unicode, )
-_SequenceTypes = (tuple, list, )
+import types
+
+_SequenceTypes = (types.ListType, types.TupleType)
+
+schema_map = {
+    (int, ): 'int',
+    (long, ): 'long',
+    (float,): 'float',
+    (bool, ): 'boolean',
+    (str, unicode): 'string',
+    (tuple, list): 'lines',
+    (DateTime, ): 'date',
+    (Image, ): 'image',
+}
 
 
-def _guessSchema(kw):
-
+def _guessSchema(keywords):
     schema = []
-    for k, v in kw.items():
-
-        ptype = 'string'
-
-        if type(v) is IntType:
-            ptype = 'int'
-
-        elif type(v) is FloatType:
-            ptype = 'float'
-
-        elif type(v) is LongType:
-            ptype = 'long'
-
-        elif type(v) is BooleanType:
-            ptype = 'boolean'
-
-        elif type(v) in _SequenceTypes:
-
-            if v and type(v[0]) not in StringTypes:
-                raise ValueError('Property %s: sequence items not strings' % k)
-
-            ptype = 'lines'
-
-        elif type(v) is DateTime:
-            ptype = 'date'
-
-        elif type(v) is InstanceType:
-
-            if isinstance(v, DateTime):
-                ptype = 'date'
-            else:
-                raise ValueError('Property %s: unknown class' % k)
-
-        elif isinstance(v, Image):
-            ptype = 'image'
-
-        elif type(v) not in StringTypes:
-            raise ValueError('Property %s: unknown type' % k)
-
-        schema.append((k, ptype))
-
+    for key, value in keywords.items():
+        ptype = None
+        for match, name in schema_map.items():
+            if isinstance(value, match):
+                ptype = name
+                break
+        if ptype is None:
+            raise ValueError('Property {0:s}: unknown type'.format(key))
+        if ptype == 'lines':
+            for entry in value:
+                if not isinstance(entry, (str, unicode)):
+                    raise ValueError(
+                        'Property {0:s}: sequence items not strings'.format(
+                            key
+                        )
+                    )
+        schema.append((key, ptype))
     return schema
 
 
 @implementer(IPropertySheet)
-class UserPropertySheet:
+class UserPropertySheet(object):
 
     """ Model a single, read-only set of properties about a user.
 

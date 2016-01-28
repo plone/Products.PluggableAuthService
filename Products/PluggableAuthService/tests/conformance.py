@@ -347,6 +347,16 @@ class IPropertySheet_conformance(object):
         verifyClass(IPropertySheet, self._getTargetClass())
 
 
+class IMutablePropertySheet_conformance(object):
+
+    def test_conformance_IMutablePropertySheet(self):
+
+        from Products.PluggableAuthService.interfaces.propertysheets \
+            import IMutablePropertySheet
+
+        verifyClass(IMutablePropertySheet, self._getTargetClass())
+
+
 class INotCompetentPlugin_conformance(object):
 
     def test_INotCompetentPlugin_conformance(self):

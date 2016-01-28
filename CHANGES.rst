@@ -3,11 +3,12 @@ Change Log
 
 2.0 (unreleased)
 ----------------
-- Moved the password length IValidationPlugin from PlonePAS to the 
+
+- Moved the password length IValidationPlugin from PlonePAS to the
   PluggableAuthservice and added tests
   [dataflake]
 
-- Added mutable property sheets, moved from PlonePAS.
+- Added mutable property sheets, moved with improvements from PlonePAS.
   [jensens]
 
 - Added AutoGroupPlugin, moved from PlonePAS.
