@@ -3,6 +3,9 @@ Change Log
 
 2.0 (unreleased)
 ----------------
+- Moved the password length IValidationPlugin from PlonePAS to the 
+  PluggableAuthservice and added tests
+  [dataflake]
 
 - Add implementations for the IUserLoggedInEvent and IUserLoggedOutEvent
   interfaces.

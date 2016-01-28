@@ -363,3 +363,21 @@ class INotCompetentPlugin_conformance(object):
 
         listed = self._makeOne().listInterfaces()
         self.failUnless(INotCompetentPlugin.__name__ in listed)
+
+class IValidationPlugin_conformance(object):
+
+    def test_IValidationPlugin_conformance(self):
+
+        from Products.PluggableAuthService.interfaces.plugins \
+            import IValidationPlugin
+
+        verifyClass(IValidationPlugin, self._getTargetClass())
+
+    def test_IValidationPlugin_listInterfaces(self):
+
+        from Products.PluggableAuthService.interfaces.plugins \
+            import IValidationPlugin
+
+        listed = self._makeOne().listInterfaces()
+        self.failUnless(IValidationPlugin.__name__ in listed)
+

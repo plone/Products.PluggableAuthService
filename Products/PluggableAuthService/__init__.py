@@ -26,6 +26,7 @@ from .plugins import HTTPBasicAuthHelper as HBAH
 from .plugins import InlineAuthHelper as IAH
 from .plugins import LocalRolePlugin
 from .plugins import NotCompetentHelper as NCH
+from .plugins import PasswordLengthValidator as PLV
 from .plugins import RecursiveGroupsPlugin as RGP
 from .plugins import RequestTypeSniffer as RTS
 from .plugins import ScriptablePlugin
@@ -59,6 +60,7 @@ registerMultiPlugin(CPC.ChallengeProtocolChooser.meta_type)
 registerMultiPlugin(RTS.RequestTypeSniffer.meta_type)
 registerMultiPlugin(NCH.NotCompetent_byRoles.meta_type)
 registerMultiPlugin(AutoGroupPlugin.AutoGroup.meta_type)
+registerMultiPlugin(PLV.PasswordLengthValidatorPlugin.meta_type)
 
 try:
     from Products.GenericSetup import profile_registry
@@ -286,6 +288,7 @@ def initialize(context):
         visibility=None
 
     )
+
     context.registerClass(
         AutoGroupPlugin.AutoGroup,
         permission=ManageUsers,
@@ -294,6 +297,15 @@ def initialize(context):
             AutoGroupPlugin.manage_addAutoGroup, ),
         visibility=None
 
+    )
+
+    context.registerClass(
+        PLV.PasswordLengthValidatorPlugin,
+        permission=ManageUsers,
+        constructors=(
+            PLV.manage_addPasswordLengthValidatorForm,
+            PLV.addPasswordLengthValidator, ),
+        visibility=None
     )
 
     if profile_registry is not None:
