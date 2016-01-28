@@ -6,7 +6,7 @@ from Products.PluggableAuthService.PropertiedUser import PropertiedUser
 from Products.PluggableAuthService.plugins.BasePlugin import BasePlugin
 from zope.interface import implementer
 
-manage_addAutoGroupForm = PageTemplateFile("../zmi/AutoGroupForm", globals())
+manage_addAutoGroupForm = PageTemplateFile("www/AutoGroupForm", globals())
 
 
 def manage_addAutoGroup(self, id, title='', group='', description='',
