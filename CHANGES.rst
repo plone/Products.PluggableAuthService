@@ -7,6 +7,12 @@ Change Log
   PluggableAuthservice and added tests
   [dataflake]
 
+- Added mutable property sheets, moved from PlonePAS.
+  [jensens]
+
+- Added AutoGroupPlugin, moved from PlonePAS.
+  [jensens]
+
 - Add implementations for the IUserLoggedInEvent and IUserLoggedOutEvent
   interfaces.
   [dataflake]
