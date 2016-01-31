@@ -94,3 +94,16 @@ class IMutablePropertySheet(IPropertySheet):
         """ Sets for each key in the mapping the property to the given
             corresponding value.
         """
+
+
+class IMutablePropertySchemaFactory(Interface):
+    """factory for mutable property sheet schemas.
+    """
+
+    def schema(user):
+        """returns a schema
+        """
+
+    def defaultvalues(user):
+        """returns default values for schema
+        """

@@ -35,6 +35,7 @@ from .plugins import SessionAuthHelper as SAH
 from .plugins import ZODBGroupManager
 from .plugins import ZODBRoleManager
 from .plugins import ZODBUserManager
+from .plugins import ZODBMutablePropertiesManager
 from .utils import allTests  # noqa
 from AccessControl.Permissions import manage_users as ManageUsers
 from permissions import ManageGroups
@@ -51,6 +52,9 @@ registerMultiPlugin(ScriptablePlugin.ScriptablePlugin.meta_type)
 registerMultiPlugin(ZODBGroupManager.ZODBGroupManager.meta_type)
 registerMultiPlugin(ZODBUserManager.ZODBUserManager.meta_type)
 registerMultiPlugin(ZODBRoleManager.ZODBRoleManager.meta_type)
+registerMultiPlugin(
+    ZODBMutablePropertiesManager.ZODBMutablePropertiesManager.meta_type
+)
 registerMultiPlugin(LocalRolePlugin.LocalRolePlugin.meta_type)
 registerMultiPlugin(DMP.DelegatingMultiPlugin.meta_type)
 registerMultiPlugin(SPP.SearchPrincipalsPlugin.meta_type)
@@ -207,6 +211,16 @@ def initialize(context):
             ZODBRoleManager.addZODBRoleManager, ),
         visibility=None,
         icon='plugins/www/ZODBRoleManager.gif'
+    )
+
+    context.registerClass(
+        ZODBMutablePropertiesManager.ZODBMutablePropertiesManager,
+        permission=ManageUsers,
+        constructors=(
+            ZODBMutablePropertiesManager.manage_addZODBMutablePropertiesManagerForm,  # noqa
+            ZODBMutablePropertiesManager.manage_addZODBMutablePropertiesManager, ),  # noqa
+        visibility=None,
+        icon='plugins/www/ZODBMutablePropertiesManager.gif'
     )
 
     context.registerClass(

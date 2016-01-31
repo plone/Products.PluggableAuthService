@@ -374,6 +374,7 @@ class INotCompetentPlugin_conformance(object):
         listed = self._makeOne().listInterfaces()
         self.failUnless(INotCompetentPlugin.__name__ in listed)
 
+
 class IValidationPlugin_conformance(object):
 
     def test_IValidationPlugin_conformance(self):
@@ -391,3 +392,20 @@ class IValidationPlugin_conformance(object):
         listed = self._makeOne().listInterfaces()
         self.failUnless(IValidationPlugin.__name__ in listed)
 
+
+class IMutablePropertiesPlugin_conformance(object):
+
+    def test_IMutablePropertiesPlugin_conformance(self):
+
+        from Products.PluggableAuthService.interfaces.plugins \
+            import IMutablePropertiesPlugin
+
+        verifyClass(IMutablePropertiesPlugin, self._getTargetClass())
+
+    def test_IMutablePropertiesPlugin_listInterfaces(self):
+
+        from Products.PluggableAuthService.interfaces.plugins \
+            import IMutablePropertiesPlugin
+
+        listed = self._makeOne().listInterfaces()
+        self.failUnless(IMutablePropertiesPlugin.__name__ in listed)

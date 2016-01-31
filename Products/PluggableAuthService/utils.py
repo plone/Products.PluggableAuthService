@@ -279,3 +279,16 @@ def csrf_only(wrapped):
     exec '\n'.join(lines) in g, l
 
     return functools.wraps(wrapped)(l['wrapper'])
+
+
+def safe_unicode(value, encoding='utf-8'):
+    """Converts a value to unicode, even it is already a unicode string.
+    """
+    if isinstance(value, unicode):
+        return value
+    elif isinstance(value, basestring):
+        try:
+            value = unicode(value, encoding)
+        except UnicodeDecodeError:
+            value = value.decode('utf-8', 'replace')
+    return value
