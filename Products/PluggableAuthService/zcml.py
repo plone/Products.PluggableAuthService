@@ -12,14 +12,13 @@
 #
 ##############################################################################
 """PAS ZCML directives.
-
-$Id$
 """
 from PluggableAuthService import MultiPlugins
 from PluggableAuthService import registerMultiPlugin as rMP
 from zope.configuration.exceptions import ConfigurationError
 from zope.configuration.fields import PythonIdentifier
 from zope.interface import Interface
+from zope.testing.cleanup import addCleanUp
 
 
 class IRegisterMultiPlugin(Interface):
@@ -67,6 +66,6 @@ def cleanUp():
         MultiPlugins.remove(meta_type)
     _mt_regs = []
 
-from zope.testing.cleanup import addCleanUp
+
 addCleanUp(cleanUp)
 del addCleanUp

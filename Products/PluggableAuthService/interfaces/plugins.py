@@ -640,4 +640,3 @@ class IGroupManagement(Interface):
         remove the given principal from the group
         return True on success
         """
-

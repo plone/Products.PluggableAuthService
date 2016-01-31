@@ -23,6 +23,7 @@ def manage_addAutoGroup(self, id, title='', group='', description='',
 
 
 class VirtualGroup(PropertiedUser):
+
     def __init__(self, id, title='', description=''):
         super(VirtualGroup, self).__init__(id)
         self.id = id

@@ -185,5 +185,6 @@ class UserLoggedOutTests(unittest.TestCase, ConformsToIPASEvent):
             import IUserLoggedOutEvent
         verifyObject(IUserLoggedOutEvent, self._makeOne())
 
+
 class DummyPrincipal(object):
     pass

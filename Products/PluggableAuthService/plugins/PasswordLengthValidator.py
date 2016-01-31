@@ -4,11 +4,10 @@ from App.class_init import InitializeClass
 from Products.PageTemplates.PageTemplateFile import PageTemplateFile
 from Products.PluggableAuthService.interfaces.plugins import IValidationPlugin
 from Products.PluggableAuthService.plugins.BasePlugin import BasePlugin
-from zope.i18nmessageid import MessageFactory
 from zope.interface import implementer
 
-manage_addPasswordLengthValidatorForm = PageTemplateFile( 
-    "www/plvAdd", 
+manage_addPasswordLengthValidatorForm = PageTemplateFile(
+    "www/plvAdd",
     globals(),
     __name__='manage_addPasswordLengthValidatorForm'
 )
@@ -25,7 +24,7 @@ def addPasswordLengthValidator(dispatcher, id, title='', pwlength=5,
     if REQUEST is not None:
         return REQUEST['RESPONSE'].redirect(
             "%s/manage_workspace?"
-            "manage_tabs_message=Password+Length+Validator+plugin+added" 
+            "manage_tabs_message=Password+Length+Validator+plugin+added"
             % dispatcher.absolute_url()
         )
 
@@ -41,9 +40,9 @@ class PasswordLengthValidatorPlugin(BasePlugin):
 
     _properties = (
         dict(id='prefix', type='string', mode='w', label='Optional Prefix'),
-        dict(id='pwlength', type='int', mode='w', 
+        dict(id='pwlength', type='int', mode='w',
              label='Minimum password length'),
-        )
+    )
 
     def __init__(self, id, title='', pwlength=5):
         """Create a password length policy
@@ -65,7 +64,7 @@ class PasswordLengthValidatorPlugin(BasePlugin):
 
         if len(password) < self.pwlength:
             msg = 'Your password must contain at least %i characters.' % (
-                   self.pwlength)
+                self.pwlength)
             return [
                 {
                     'id': 'password',
