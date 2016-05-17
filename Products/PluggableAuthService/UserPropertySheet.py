@@ -23,23 +23,23 @@ import types
 
 _SequenceTypes = (types.ListType, types.TupleType)
 
-schema_map = {
-    (int, ): 'int',
-    (long, ): 'long',
-    (float,): 'float',
-    (bool, ): 'boolean',
-    (str, unicode): 'string',
-    (tuple, list): 'lines',
-    (DateTime, ): 'date',
-    (Image, ): 'image',
-}
+_schema_items = (
+    ((bool, ), 'boolean'),
+    ((int, ), 'int'),
+    ((long, ), 'long'),
+    ((float,), 'float'),
+    ((str, unicode), 'string'),
+    ((tuple, list), 'lines'),
+    ((DateTime, ), 'date'),
+    ((Image, ), 'image'),
+)
 
 
 def _guessSchema(keywords):
     schema = []
     for key, value in keywords.items():
         ptype = None
-        for match, name in schema_map.items():
+        for match, name in _schema_items:
             if isinstance(value, match):
                 ptype = name
                 break
